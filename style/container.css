@@ -14,7 +14,7 @@
     width: 100%;
 }
 .linkdiv{
-    width: 18%;
+    width: 100%;
 }
 .information{
     display: flex;
@@ -28,12 +28,13 @@
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
     width: 100%;
-    height: 300px;
+    aspect-ratio: 253/142;
 }
 .slide{
     padding: 20px 0;
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: repeat(5,minmax(0,1fr));
+    gap: 20px;
     width: 100%;
 }
 h2{
