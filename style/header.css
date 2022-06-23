@@ -40,10 +40,12 @@ a{
     color: #FBD103;
 }
 .textfield{
-    width: 70%;
-    padding: 5px 1px;
+    padding: 7px 14px;
     margin-right: 1px;
     border-radius: 5px;
+}
+.search_icon{
+    font-size: 20px;
 }
 .form-login{
     background-color: #FBD103;
@@ -63,13 +65,10 @@ a{
 .menu{
     display: none;
 }
-@media (max-width: 840px)
+@media (max-width: 980px)
 {
     .header-list{
         display: none;
-    }
-    .textfield{
-        width: 85%;
     }
     .menu{
         font-size: 20px;
@@ -86,7 +85,7 @@ a{
         display: none;
     }
 }
-@media (min-width: 840px){
+@media (min-width: 980px){
     .menu-bars{
         display: none !important;
     }
