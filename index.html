@@ -12,20 +12,75 @@
     <script src="index.js"></script>
 </head>
 <script>
+    async function loadapi(){
+        var key="1d8335abc1492efbcd1a65f823ca848c";
+        var api=`https://api.themoviedb.org/3/movie/popular?api_key=${key}&language=en-US&page=1`;
+        var data= await fetch(api).then(res=> res.json());
+        return data;
+    }
     var index =0;
-    setInterval(changeimg=function()
+    var data= loadapi();
+    var path="https://image.tmdb.org/t/p/w500/";
+    var url="./details/movie/";
+    var img1s=[],txt1s=[],idphims=[];
+    window.onload= async function()
     {
-        var imgs=["img/samsung-galaxy-z-fold-3.jpg","img/SHOP.png","img/Xiaomi11.jpg","img/Xiaomi11.jpg","img/Xiaomi11.jpg","img/SHOP.png"];
-        document.getElementById('img').src =imgs[index];
-        document.getElementById('img2').src =imgs[index+1];
-        document.getElementById('img3').src =imgs[index+2];
-        console.log(imgs[index]);
-        index+=3;
-        if(index==6)
+        var datas= await data;
+        for(var i=0;i<20;i++){
+            img1s.push(path+datas.results[i].poster_path);
+            txt1s.push(datas.results[i].original_title);
+            idphims.push(datas.results[i].id);
+        }
+        loaddataphimdecu();
+    }
+    setInterval(loaddataphimdecu=function()
+    {
+        loaddata_a();
+        index+=5;
+        if(index==20)
         {
             index=0;
         }
     },10000);
+    function loaddata_a(){
+            document.getElementById('img_1a').src =img1s[index];
+            document.getElementById('img_2a').src =img1s[index+1];
+            document.getElementById('img_3a').src =img1s[index+2];
+            document.getElementById('img_4a').src =img1s[index+3];
+            document.getElementById('img_5a').src =img1s[index+4];
+            
+            document.getElementById('txt_1a').innerText =txt1s[index];
+            document.getElementById('txt_2a').innerText =txt1s[index+1];
+            document.getElementById('txt_3a').innerText =txt1s[index+2];
+            document.getElementById('txt_4a').innerText =txt1s[index+3];
+            document.getElementById('txt_5a').innerText =txt1s[index+4];
+
+            document.getElementById('idphim_1a').href =url+ idphims[index];
+            document.getElementById('idphim_2a').href =url+ idphims[index+1];
+            document.getElementById('idphim_3a').href =url+ idphims[index+2];
+            document.getElementById('idphim_4a').href =url+ idphims[index+3];
+            document.getElementById('idphim_5a').href =url+ idphims[index+4];
+    }
+    function backphim(loaiphim){
+        index-=5;
+        if(index==-5)
+        {
+            index=15;
+        }
+        if(loaiphim==1){
+            loaddata_a();
+        }
+    }
+    function nextphim(loaiphim){
+        if(loaiphim==1){
+            loaddata_a();
+        }
+        index+=5;
+        if(index==20)
+        {
+            index=0;
+        }
+    }
 </script>
 <body>
         <!--  -->
@@ -44,9 +99,22 @@
                             <div>abc</div>
                             <div>cba</div>
                             <div>bac</div>
-                        </div></span>
-                    <span>Quốc gia</span>
-                    <span>Năm phát hành</span>
+                        </div>
+                    </span>
+                    <span class="Home_parent" style="position: relative;">Quốc gia<i class="fas fa-angle-down icon" style="font-size: 20px;"></i>
+                        <div class="Home_child" style="position: absolute; left: 0; top: 50px;display: none;">
+                            <div>abc</div>
+                            <div>cba</div>
+                            <div>bac</div>
+                        </div>
+                    </span>
+                    <span class="Home_parent" style="position: relative;">Năm phát hành<i class="fas fa-angle-down icon" style="font-size: 20px;"></i>
+                        <div class="Home_child" style="position: absolute; left: 0; top: 50px;display: none;">
+                            <div>abc</div>
+                            <div>cba</div>
+                            <div>bac</div>
+                        </div>
+                    </span>
                 </div>
                 <div class="search">
                     <input type="search" name="" id="" class="textfield" placeholder="Search....">
@@ -73,71 +141,74 @@
         <!--  -->
 
         <div class="container">
-            <div class="content">
                 <!-- phim de cu -->
                 <h2>PHIM ĐỀ CỬ</h2>
                 <div class="slide">
-                    <a href="" class="linkdiv">
+                    <i class="fas fa-angle-left icon" style="font-size: 80px;position: absolute;left: 5%; z-index: 1;top: 10%;" onclick="backphim(1)"></i>
+                    <i class="fas fa-angle-right icon" style="font-size: 80px;position: absolute;right: 5%; z-index: 1;top: 10%;" onclick="nextphim(1)"></i>
+                    <a href="" class="linkdiv" id="idphim_1a">
                         <div class="information">
-                            <img id="img" class="img" onclick="changeimg()" src="img/SHOP.png" alt="">
-                            <p class="text_slide">sdsfds</p>
+                            <img id="img_1a" class="img" src="" alt="">
+                            <p class="text_slide" id="txt_1a"></p>
                         </div>
                     </a>
-                    <a href="" class="linkdiv">
+                    <a href="" class="linkdiv" id="idphim_2a">
                         <div class="information">
-                            <img id="img2" class="img" onclick="changeimg()" src="img/SHOP.png" alt="">
-                            <p class="text_slide">sdsf</p>
+                            <img id="img_2a" class="img" src="" alt="">
+                            <p class="text_slide" id="txt_2a"></p>
                         </div>
                     </a>
-                    <a href="" class="linkdiv">
+                    <a href="" class="linkdiv" id="idphim_3a">
                         <div class="information">
-                            <img id="img3" class="img" onclick="changeimg()" src="img/SHOP.png" alt="">
-                            <p class="text_slide">ssdfsdfdsf</p>
+                            <img id="img_3a" class="img" src="" alt="">
+                            <p class="text_slide" id="txt_3a"></p>
                         </div>
                     </a>
-                    <a href="" class="linkdiv">
+                    <a href="" class="linkdiv" id="idphim_4a">
                         <div class="information">
-                            <img id="img2" class="img" onclick="changeimg()" src="img/SHOP.png" alt="">
-                            <p class="text_slide">sd23123sf</p>
+                            <img id="img_4a" class="img" src="" alt="">
+                            <p class="text_slide" id="txt_4a"></p>
                         </div>
                     </a>
-                    <a href="" class="linkdiv">
+                    <a href="" class="linkdiv" id="idphim_5a">
                         <div class="information">
-                            <img id="img3" class="img" onclick="changeimg()" src="img/SHOP.png" alt="">
-                            <p class="text_slide">sdwewesf</p>
+                            <img id="img_5a" class="img" src="" alt="">
+                            <p class="text_slide" id="txt_5a"></p>
                         </div>
                     </a>
                 </div>
                 <!-- phim le moi cap nhap-->
                 <h2>PHIM LẺ MỚI CẬP NHẬT</h2>
                 <div class="slide">
+                    <i class="fas fa-angle-left icon" style="font-size: 80px;position: absolute;left: 5%; z-index: 1;top: 30%;"></i>
+                    <i class="fas fa-angle-right icon" style="font-size: 80px;position: absolute;right: 5%; z-index: 1;top: 30%;"></i>
                     <a href="" class="linkdiv">
                         <div class="information">
-                            <img id="img" class="img" onclick="changeimg()" src="img/SHOP.png" alt="">
+                            <img id="img" class="img" src="img/SHOP.png" alt="">
                             <p class="text_slide">sdsfds</p>
                         </div>
                     </a>
                     <a href="" class="linkdiv">
                         <div class="information">
-                            <img id="img2" class="img" onclick="changeimg()" src="img/SHOP.png" alt="">
+                            <img id="img2" class="img" src="img/SHOP.png" alt="">
                             <p class="text_slide">sdsf</p>
                         </div>
                     </a>
                     <a href="" class="linkdiv">
                         <div class="information">
-                            <img id="img3" class="img" onclick="changeimg()" src="img/SHOP.png" alt="">
+                            <img id="img3" class="img" src="img/SHOP.png" alt="">
                             <p class="text_slide">ssdfsdfdsf</p>
                         </div>
                     </a>
                     <a href="" class="linkdiv">
                         <div class="information">
-                            <img id="img2" class="img" onclick="changeimg()" src="img/SHOP.png" alt="">
+                            <img id="img2" class="img" src="img/SHOP.png" alt="">
                             <p class="text_slide">sd23123sf</p>
                         </div>
                     </a>
                     <a href="" class="linkdiv">
                         <div class="information">
-                            <img id="img3" class="img" onclick="changeimg()" src="img/SHOP.png" alt="">
+                            <img id="img3" class="img" src="img/SHOP.png" alt="">
                             <p class="text_slide">sdwewesf</p>
                         </div>
                     </a>
@@ -145,33 +216,35 @@
                 <!--PHIM CHIEU RAP  -->
                 <h2>PHIM CHIẾU RẠP</h2>
                 <div class="slide">
+                    <i class="fas fa-angle-left icon" style="font-size: 80px;position: absolute;left: 5%; z-index: 1;top: 50%;"></i>
+                    <i class="fas fa-angle-right icon" style="font-size: 80px;position: absolute;right: 5%; z-index: 1;top: 50%;"></i>
                     <a href="" class="linkdiv">
                         <div class="information">
-                            <img id="img" class="img" onclick="changeimg()" src="img/SHOP.png" alt="">
+                            <img id="img" class="img" src="img/SHOP.png" alt="">
                             <p class="text_slide">sdsfds</p>
                         </div>
                     </a>
                     <a href="" class="linkdiv">
                         <div class="information">
-                            <img id="img2" class="img" onclick="changeimg()" src="img/SHOP.png" alt="">
+                            <img id="img2" class="img" src="img/SHOP.png" alt="">
                             <p class="text_slide">sdsf</p>
                         </div>
                     </a>
                     <a href="" class="linkdiv">
                         <div class="information">
-                            <img id="img3" class="img" onclick="changeimg()" src="img/SHOP.png" alt="">
+                            <img id="img3" class="img" src="img/SHOP.png" alt="">
                             <p class="text_slide">ssdfsdfdsf</p>
                         </div>
                     </a>
                     <a href="" class="linkdiv">
                         <div class="information">
-                            <img id="img2" class="img" onclick="changeimg()" src="img/SHOP.png" alt="">
+                            <img id="img2" class="img" src="img/SHOP.png" alt="">
                             <p class="text_slide">sd23123sf</p>
                         </div>
                     </a>
                     <a href="" class="linkdiv">
                         <div class="information">
-                            <img id="img3" class="img" onclick="changeimg()" src="img/SHOP.png" alt="">
+                            <img id="img3" class="img" src="img/SHOP.png" alt="">
                             <p class="text_slide">sdwewesf</p>
                         </div>
                     </a>
@@ -179,33 +252,35 @@
                 <!-- PHIM BO MOI CAP NHA -->
                 <h2>PHIM BỘ MỚI CẬP NHẬT</h2>
                 <div class="slide">
+                    <i class="fas fa-angle-left icon" style="font-size: 80px;position: absolute;left: 5%; z-index: 1;top: 70%;"></i>
+                    <i class="fas fa-angle-right icon" style="font-size: 80px;position: absolute;right: 5%; z-index: 1;top: 70%;"></i>
                     <a href="" class="linkdiv">
                         <div class="information">
-                            <img id="img" class="img" onclick="changeimg()" src="img/SHOP.png" alt="">
+                            <img id="img" class="img" src="img/SHOP.png" alt="">
                             <p class="text_slide">sdsfds</p>
                         </div>
                     </a>
                     <a href="" class="linkdiv">
                         <div class="information">
-                            <img id="img2" class="img" onclick="changeimg()" src="img/SHOP.png" alt="">
+                            <img id="img2" class="img" src="img/SHOP.png" alt="">
                             <p class="text_slide">sdsf</p>
                         </div>
                     </a>
                     <a href="" class="linkdiv">
                         <div class="information">
-                            <img id="img3" class="img" onclick="changeimg()" src="img/SHOP.png" alt="">
+                            <img id="img3" class="img" src="img/SHOP.png" alt="">
                             <p class="text_slide">ssdfsdfdsf</p>
                         </div>
                     </a>
                     <a href="" class="linkdiv">
                         <div class="information">
-                            <img id="img2" class="img" onclick="changeimg()" src="img/SHOP.png" alt="">
+                            <img id="img2" class="img" src="img/SHOP.png" alt="">
                             <p class="text_slide">sd23123sf</p>
                         </div>
                     </a>
                     <a href="" class="linkdiv">
                         <div class="information">
-                            <img id="img3" class="img" onclick="changeimg()" src="img/SHOP.png" alt="">
+                            <img id="img3" class="img" src="img/SHOP.png" alt="">
                             <p class="text_slide">sdwewesf</p>
                         </div>
                     </a>
@@ -213,39 +288,40 @@
                 <!-- PHIM THINH HANH -->
                 <h2>PHIM THỊNH HÀNH</h2>
                 <div class="slide">
+                    <i class="fas fa-angle-left icon" style="font-size: 80px;position: absolute;left: 5%; z-index: 1;top: 90%;"></i>
+                    <i class="fas fa-angle-right icon" style="font-size: 80px;position: absolute;right: 5%; z-index: 1;top: 90%;"></i>
                     <a href="" class="linkdiv">
                         <div class="information">
-                            <img id="img" class="img" onclick="changeimg()" src="img/SHOP.png" alt="">
+                            <img id="img" class="img" src="img/SHOP.png" alt="">
                             <p class="text_slide">sdsfds</p>
                         </div>
                     </a>
                     <a href="" class="linkdiv">
                         <div class="information">
-                            <img id="img2" class="img" onclick="changeimg()" src="img/SHOP.png" alt="">
+                            <img id="img2" class="img" src="img/SHOP.png" alt="">
                             <p class="text_slide">sdsf</p>
                         </div>
                     </a>
                     <a href="" class="linkdiv">
                         <div class="information">
-                            <img id="img3" class="img" onclick="changeimg()" src="img/SHOP.png" alt="">
+                            <img id="img3" class="img" src="img/SHOP.png" alt="">
                             <p class="text_slide">ssdfsdfdsf</p>
                         </div>
                     </a>
                     <a href="" class="linkdiv">
                         <div class="information">
-                            <img id="img2" class="img" onclick="changeimg()" src="img/SHOP.png" alt="">
+                            <img id="img2" class="img" src="img/SHOP.png" alt="">
                             <p class="text_slide">sd23123sf</p>
                         </div>
                     </a>
                     <a href="" class="linkdiv">
                         <div class="information">
-                            <img id="img3" class="img" onclick="changeimg()" src="img/SHOP.png" alt="">
+                            <img id="img3" class="img" src="img/SHOP.png" alt="">
                             <p class="text_slide">sdwewesf</p>
                         </div>
                     </a>
                 </div>
             <!--  -->
-            </div>
         </div>
         <!-- <div class="footer"></div> -->
 </body>

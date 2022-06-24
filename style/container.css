@@ -10,9 +10,7 @@
     width: 100%;
     height: 100px;
 }
-.content{
-    width: 100%;
-}
+
 .linkdiv{
     width: 100%;
 }
@@ -28,7 +26,7 @@
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
     width: 100%;
-    aspect-ratio: 253/142;
+    aspect-ratio: 9/14;
 }
 .slide{
     padding: 20px 0;
@@ -46,6 +44,7 @@ h2{
     color: #fff;
     width: 100%;
     height: 50px;
+    padding: 4px 8px;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
 }
